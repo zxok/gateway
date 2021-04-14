@@ -1,0 +1,31 @@
+server:
+  port: 8089
+spring:
+  application:
+    name: api-gateway-server
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 101.37.159.158:8848
+    gateway:
+      routes:
+        # 路由器名字
+        - id: user-route
+          # uri：匹配路由的转发地址
+          # 微服务写法：lb://服务名
+          # 转化地址 lb://user-server
+          uri: lb://user-server
+          # predicates：配置该路由的断言
+          predicates:
+            - Path=/api/user/**
+          # 内置过滤器 去掉路径的前缀的位数 例如StripPrefix=1 去掉/api
+          filters:
+            - StripPrefix=1
+        - id: user-route
+          # 转化地址 lb://user-server
+          uri: lb://user-server
+          predicates:
+            - Path=/api/user/**
+          filters:
+            - StripPrefix=1
+

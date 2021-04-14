@@ -1,0 +1,9 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: "user-server"
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 101.37.159.158:8848
